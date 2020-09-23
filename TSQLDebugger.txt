@@ -1,0 +1,106 @@
+---------------------------------------------------------------------------------
+TSQL Debugging Made Easy 
+---------------------------------------------------------------------------------
+Microsoft T-SQL Debugger is a wonderful tool that allows you to interactively 
+debug remote stored procedures written in Microsoft SQL Server's Transact SQL 
+dialect, from within the Visual Basic development environment. But its always 
+not easy to make it work as we expected as it requires some more settings and 
+options that are not set by default. Here are the tips for that. 
+
+The debugger uses the functionality exposed by SQL Server's Sdi.dll, and exposes 
+that functionality through Remote Automation.
+
+1.Make sure that the file SDI.dll exists in the SQL Server Binn directory 
+(C:\Program Files\Microsoft SQL Server\MSSQL\Binn)
+
+2.If its not there, copy it from the SQL Server Setup CD
+ (Find it in \X86\OTHER\SDI folder; or do a search to locate it)
+
+3.Register it using 
+ regsvr32 C:\Program Files\Microsoft SQL Server\MSSQL\Binn\SDI.dll
+
+Make sure that the file sqldbreg.exe exists in the folder 
+C:\Program Files\Common Files\Microsoft Shared\SQL Debugging. 
+If not, find it from the Setup CD and copy it.
+
+4.Change the Startup Service Account of the SQL Serer from System Account to a 
+windows user Account which is having Administrative rights in that machine.
+
+To do this:
+a.Right Click on My Computer and click on Manage
+
+b.In the Services and Applications section, right click and take Properties on 
+the required SQL Server under Microsoft SQL Servers section.
+
+c.In the Security tab, Change the Startup Service Account to This Account and 
+type in the login name using DomainName\UserName format, and also give the 
+password. It will warn with some scaring mesages, but never mind it!
+
+5.In VB, take Add-In Manager from the Add-Ins menu
+
+If the T-SQL Debugger entry is not listed in the Add-in Manager after you install 
+Visual Basic and the Enterprise Tools, verify that the add-in components have been 
+installed correctly as below: 
+Make sure that the following files are present in the TSQL folder
+ (drive:\Microsoft Visual studio installation directory\VB98\TSQL )
+
+Vbsdiadd.dll
+
+Vbsdidb.dll
+
+Vbsdicli.exe
+
+If you do not see the TSQL folder or the mentioned files in your Visual Basic 
+installation directory, then rerun the Visual Basic (or Microsoft Visual Studio) 
+installation program. Be sure to select custom from the installation dialog box, 
+and then choose Select All for the Enterprise Tools selection.
+
+After completing the installation, restart the system and check to see if the 
+Visual Basic Add-in Manager lists the T-SQL Debugger.
+
+If the TSQL folder and the listed files are there, then try reregistering the 
+Vbsdiadd.dll and Vbsdidb.dll files, and then check to see if the T-SQL Debugger 
+add-in is listed in the Visual Basic Add-in Manager.
+
+6.Load VB-TSQL Debugger
+
+7.To debug stored procedures while debugging Visual Basic code 
+(run-time debugging), select T-SQL Debugging Options on Visual Basic's Tools 
+menu and Turn on automatic step into stored procedures
+
+8.Once you have selected the Automatically step into Stored Procedures 
+check box, if you step into (F8) a line of code that executes an ADO or 
+RDO method that invokes a stored procedure, the debugger will 
+automatically be started. You can then step through the stored procedure 
+and then continue debugging your Visual Basic code.
+
+9.To debug a stored procedure or batch query at design time, add the T-SQL 
+Debugger Add-In via Visual Basic's Add-In Manager (on the Add-Ins menu). 
+Then you can start the add-in by clicking T-SQL Debugger on the Add-Ins menu. 
+You then simply select a DSN, and either Stored Procedure or Batch SQL and 
+click the Execute button. This will invoke the debugger and allow you to 
+debug the SQL you are interested in.
+
+10.Its possible to place breakpoints and go step by step in T-SQl Debugger. 
+Its just like VB debugging. If you place the mouse pointer over a variable, 
+the value will be displayed as tool tip. If another SP or function is called 
+from the debugging SP, it will enter into that one and step by step debugging 
+is possible.
+
+10.If you are getting errors and not the expected results, go to the event 
+viewer (Computer Management), and verify the Application or System logs for 
+a detailed description of the error.
+
+11.The Remote Procedure Call (RPC) and RPC Locator services must be running.
+
+Note:You can find more information from Books Online or MSDN Library.
+
+---------------------------------------------------------------------------------
+Compiled By Sameer C T on 2003 March 25, from Magura Guest House, Kipkebe, Kenya
+
+Visit my website at http://www.geocities.com/sameerct for more codes and articles. 
+
+Vote for me in PSC or send me a mail to sameerct@hotmail.com if this article was useful. 
+
+This article is based on the information from Books Online and MSDN Library.
+---------------------------------------------------------------------------------
